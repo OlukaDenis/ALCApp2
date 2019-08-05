@@ -15,10 +15,6 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".UpdateActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".SignInActivity"
-            android:theme="@style/WithNoActionBar"
-            android:screenOrientation="portrait"></activity>
         <activity android:name=".TravelList"
             android:screenOrientation="portrait">
             <intent-filter>
