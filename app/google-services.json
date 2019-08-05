@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "343021322635",
+    "firebase_url": "https://alcapp-f6ea1.firebaseio.com",
+    "project_id": "alcapp-f6ea1",
+    "storage_bucket": "alcapp-f6ea1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343021322635:android:5dbe75697a3dd4f9",
+        "android_client_info": {
+          "package_name": "com.mcdenny.alcapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343021322635-5gtip5glamo26jc5sqnu6vhdkm3j99rk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mcdenny.alcapp2",
+            "certificate_hash": "c97d82ec52a91f647d6d51b1a80dd656ecfd0f20"
+          }
+        },
+        {
+          "client_id": "343021322635-l08b2jfq0pfqt5v1gv76evuenndfmrfa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRbKSLYpPx_9Q3ySE6pgVte48tfbbt0is"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343021322635-l08b2jfq0pfqt5v1gv76evuenndfmrfa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
