@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mcdenny.alcapp2.model.TravelDeal;
@@ -41,6 +43,7 @@ public class UpdateActivity extends AppCompatActivity {
     Uri saveUri;
     private String imageURL;
     private static final int PICTURE_RESULT = 55;
+    private String imageName;
 
 
     @Override
@@ -125,6 +128,8 @@ public class UpdateActivity extends AppCompatActivity {
         travelDeal.setDescription(etDesc.getText().toString());
         travelDeal.setPrice(etPrice.getText().toString());
         travelDeal.setImage(imageURL);
+        travelDeal.setImageName(imageName);
+
         if (travelDeal.getId() == null) {
             travelReference.push().setValue(travelDeal);
         } else {
@@ -171,6 +176,11 @@ public class UpdateActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading....");
+        progressDialog.show();
+
         if (requestCode == PICTURE_RESULT && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             saveUri = data.getData();
@@ -182,8 +192,9 @@ public class UpdateActivity extends AppCompatActivity {
                     ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+                            progressDialog.dismiss();
                             imageURL = uri.toString();
-                            travelDeal.setImage(uri.toString());
+                            //travelDeal.setImage(uri.toString());
                             showImage(imageURL);
 
                         }
@@ -194,7 +205,17 @@ public class UpdateActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                            progressDialog.setMessage("Uploading " + progress + "%");
+
                         }
                     });
         }
